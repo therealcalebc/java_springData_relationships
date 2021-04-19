@@ -3,6 +3,7 @@
  */
 package cd.java.springdata.relationships.repositories;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
@@ -17,22 +18,19 @@ import cd.java.springdata.relationships.models.License;
 @Repository
 public interface LicenseRepository extends CrudRepository<License, Long> {
 
-	// this method retrieves all the songs from the database
+	// this method retrieves all the licenses from the database
 	List<License> findAll();
 	
-	// this method finds songs with artists containing the search string
+	// this method finds licenses associated with persons with first name containing the search string
 	List<License> findByPersonFirstNameContainingIgnoreCase(String search);
 	
-	// this method finds songs with artists containing the search string
+	// this method finds licenses associated with persons with last name containing the search string
 	List<License> findByPersonLastNameContainingIgnoreCase(String search);
 	
-	// this method finds the 10 songs with the highest ratings in descending order
-	List<License> findTop10ByOrderByPersonLastNameDesc();
-	
-	// this method counts how many songs have titles containing the search string
+	// this method counts how many licenses have state containing the search string
 	Long countByStateContaining(String search);
 	
-	// this method deletes a song that has a title starting with the search string
-	Long deleteByExpirationDateStartingWith(String search);
+	// this method deletes a license that has a expiration date before the given date
+	Long deleteByExpirationDateBefore(Date date);
 	
 }

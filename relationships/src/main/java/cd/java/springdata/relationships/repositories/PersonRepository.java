@@ -6,6 +6,7 @@ package cd.java.springdata.relationships.repositories;
 import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import cd.java.springdata.relationships.models.Person;
@@ -17,22 +18,25 @@ import cd.java.springdata.relationships.models.Person;
 @Repository
 public interface PersonRepository extends CrudRepository<Person, Long> {
 
-	// this method retrieves all the songs from the database
+	// this method retrieves all the persons from the database
 	List<Person> findAll();
 	
-	// this method finds songs with artists containing the search string
+	// this method finds persons with first name containing the search string
 	List<Person> findByFirstNameContainingIgnoreCase(String search);
 	
-	// this method finds songs with artists containing the search string
+	// this method finds persons with last name containing the search string
 	List<Person> findByLastNameContainingIgnoreCase(String search);
 	
-	// this method finds the 10 songs with the highest ratings in descending order
-	List<Person> findTop10ByOrderByLicenseDesc();
+	// this method finds the 10 persons with the lowest license number in descending order
+	List<Person> findFirst10ByOrderByLicenseNumberAsc();
 	
-	// this method counts how many songs have titles containing the search string
+	// this method finds the 10 persons with the highest license number in descending order
+	List<Person> findFirst10ByOrderByLicenseNumberDesc();
+	
+	// this method counts how many persons have a license with state containing the search string
 	Long countByLicenseStateContaining(String search);
 	
-	// this method deletes a song that has a title starting with the search string
-	Long deleteByLicenseExpirationDateStartingWith(String search);
+	// this method deletes a person by matching firstName and lastName
+	Long deleteByFirstNameAndLastNameIgnoringCase(@Param("firstName") String firstName, @Param("lastName") String lastName);
 	
 }
