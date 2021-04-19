@@ -33,6 +33,7 @@ public class Person implements java.io.Serializable {
     private Long id;
     private String firstName;
     private String lastName;
+    private transient String fullName;
     @Column(updatable=false)
     private Date createdAt;
     private Date updatedAt;
@@ -45,7 +46,8 @@ public class Person implements java.io.Serializable {
     
     public Person(String fn, String ln) {
     	firstName = fn;
-    	lastName = fn;
+    	lastName = ln;
+    	fullName = String.format("%s %s", fn, ln);
     }
     
     /**
@@ -74,6 +76,7 @@ public class Person implements java.io.Serializable {
 	 */
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
+		fullName = String.format("%s %s", firstName, lastName);
 	}
 
 	/**
@@ -88,6 +91,14 @@ public class Person implements java.io.Serializable {
 	 */
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+		fullName = String.format("%s %s", firstName, lastName);
+	}
+
+	/**
+	 * @return the full name
+	 */
+	public String getFullName() {
+		return fullName;
 	}
 
 	/**
