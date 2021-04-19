@@ -3,8 +3,9 @@
  */
 package cd.java.springdata.relationships.models;
 
-import java.util.Calendar;
-import java.util.Date;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -39,24 +40,20 @@ public class License implements java.io.Serializable {
     @Column(updatable=false)
     private String state;
     @Column(updatable=false)
-    private Date createdAt;
-    private Date updatedAt;
+    private Timestamp createdAt;
+    private Timestamp updatedAt;
     @OneToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="person_id")
     private Person person;
     
     public License() {}
     
-    public License(String state) {
-    	this.state = state;
+    public License(Date expirationDate, String state, Person person) {
     	licenseCounter++;
     	number = String.format("%06d", licenseCounter);
-    	Calendar cal = Calendar.getInstance();
-    	cal.add(Calendar.YEAR, 5);
-    	cal.set(Calendar.HOUR_OF_DAY, 0);
-    	cal.set(Calendar.MINUTE, 0);
-    	cal.set(Calendar.SECOND, 0);
-    	expirationDate = cal.getTime();
+    	this.expirationDate = expirationDate;
+    	this.state = state;
+    	this.person = person;
     }
     
     /**
@@ -118,28 +115,28 @@ public class License implements java.io.Serializable {
 	/**
 	 * @return the createdAt
 	 */
-	public Date getCreatedAt() {
+	public Timestamp getCreatedAt() {
 		return createdAt;
 	}
 	
 	/**
 	 * @param createdAt the createdAt to set
 	 */
-	public void setCreatedAt(Date createdAt) {
+	public void setCreatedAt(Timestamp createdAt) {
 		this.createdAt = createdAt;
 	}
 	
 	/**
 	 * @return the updatedAt
 	 */
-	public Date getUpdatedAt() {
+	public Timestamp getUpdatedAt() {
 		return updatedAt;
 	}
 	
 	/**
 	 * @param updatedAt the updatedAt to set
 	 */
-	public void setUpdatedAt(Date updatedAt) {
+	public void setUpdatedAt(Timestamp updatedAt) {
 		this.updatedAt = updatedAt;
 	}
 	
@@ -155,6 +152,10 @@ public class License implements java.io.Serializable {
 	 */
 	public void setPerson(Person person) {
 		this.person = person;
+	}
+	
+	public static Date defaultExpirationDate() {
+		return Date.valueOf(LocalDate.now().plusYears(5));
 	}
 	
 }
