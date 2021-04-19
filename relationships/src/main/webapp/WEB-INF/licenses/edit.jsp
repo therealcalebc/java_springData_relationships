@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isErrorPage="true"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 <html>
@@ -10,13 +11,22 @@
 <body>
 	<div>
 		<a href="/dashboard">Dashboard</a>
-		<br>
-		<form:form action="/licenses" method="post" modelAttribute="license" id="editLicenseForm">
+		<h1>Edit License</h1>
+		<form:form action="/licenses/${license.id}" method="post" modelAttribute="license" id="editLicenseForm">
 			<input type="hidden" name="_method" value="put">
 		    <p>
 		        <form:label path="person">Person</form:label>
 		        <form:select path="person">
-		        	<form:options items="${persons}" itemValue="id" itemLabel="fullName"/>
+		        	<c:forEach items="${persons}" var="p">
+		        		<c:choose>
+			        		<c:when test="${p.id == license.person.id}">
+			        			<form:option value="${p}" selected="true" label="${p.firstName} ${p.lastName}"/>
+			        		</c:when>
+			        		<c:otherwise>
+			        			<form:option value="${p}" label="${p.firstName} ${p.lastName}"/>
+			        		</c:otherwise>
+		        		</c:choose>
+			        </c:forEach>
 		        </form:select>
 		        <form:errors path="person"/>
 		    </p>
@@ -33,7 +43,7 @@
 		    <!-- <input type="submit" value="Update"/> -->
 		</form:form>
 		<button type="submit" form="editLicenseForm">Update</button>
-		<form action="/songs/${song.id}" method="post" style="display: inline;">
+		<form action="/licenses/${license.id}" method="post" style="display: inline;">
 			<input type="hidden" name="_method" value="delete">
 			<input type="submit" value="Delete">
 		</form>

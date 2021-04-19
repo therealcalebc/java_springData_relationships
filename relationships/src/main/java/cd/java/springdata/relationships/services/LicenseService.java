@@ -7,6 +7,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
 import cd.java.springdata.relationships.models.License;
 import cd.java.springdata.relationships.repositories.LicenseRepository;
 
@@ -14,6 +16,7 @@ import cd.java.springdata.relationships.repositories.LicenseRepository;
  * @author ccomstock
  *
  */
+@Service
 public class LicenseService {
 
 	private final LicenseRepository licenseRepository;
@@ -27,6 +30,8 @@ public class LicenseService {
 	 * @return the newly created person
 	 */
 	public License createOne(License p) {
+		int last = Integer.parseUnsignedInt(licenseRepository.findFirstByOrderByNumberDesc().getNumber());
+    	p.setNumber(String.format("%06d", last + 1));
 		return licenseRepository.save(p);
 	}
 	
@@ -58,9 +63,9 @@ public class LicenseService {
 	 * @return the License that was retrieved
 	 */
 	public License readOne(Long id) {
-		Optional<License> optLang = licenseRepository.findById(id);
-		if(optLang.isPresent())
-			return optLang.get();
+		Optional<License> optLicense = licenseRepository.findById(id);
+		if(optLicense.isPresent())
+			return optLicense.get();
 		else
 			return null;
 	}

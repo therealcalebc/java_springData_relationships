@@ -6,6 +6,7 @@ package cd.java.springdata.relationships.models;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,7 +16,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * @author ccomstock
@@ -29,28 +37,29 @@ public class License implements java.io.Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 6834461966200727291L;
-	private static int licenseCounter = 0;
+//	private static int licenseCounter = 0;
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(updatable=false)
     private String number;
     private Date expirationDate;
-    @Column(updatable=false)
     private String state;
     @Column(updatable=false)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
     private Timestamp createdAt;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
     private Timestamp updatedAt;
+	@JsonIgnore
     @OneToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="person_id")
     private Person person;
     
-    public License() {}
+    public License() {
+    	expirationDate = defaultExpirationDate();
+    }
     
     public License(Date expirationDate, String state, Person person) {
-    	licenseCounter++;
-    	number = String.format("%06d", licenseCounter);
     	this.expirationDate = expirationDate;
     	this.state = state;
     	this.person = person;
@@ -152,6 +161,24 @@ public class License implements java.io.Serializable {
 	 */
 	public void setPerson(Person person) {
 		this.person = person;
+	}
+	
+
+	@JsonProperty("personName")
+	public String getPersonName() {
+		return String.format("%s %s", person.getFirstName(), person.getLastName());
+	}
+
+	@PrePersist
+	protected void onCreate() {
+//    	License.licenseCounter++;
+//    	number = String.format("%06d", License.licenseCounter);
+		this.createdAt = Timestamp.valueOf(LocalDateTime.now());
+	}
+	
+	@PreUpdate
+	protected void onUpdate() {
+		this.updatedAt = Timestamp.valueOf(LocalDateTime.now());
 	}
 	
 	public static Date defaultExpirationDate() {

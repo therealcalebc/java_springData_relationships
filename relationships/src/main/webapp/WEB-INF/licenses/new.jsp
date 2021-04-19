@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isErrorPage="true"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 <html>
@@ -10,12 +11,14 @@
 <body>
 	<div>
 		<a href="/dashboard">Dashboard</a>
-		<br>
+		<h1>New License</h1>
 		<form:form action="/licenses" method="post" modelAttribute="license">
 		    <p>
 		        <form:label path="person">Person</form:label>
 		        <form:select path="person">
-		        	<form:options items="${persons}" itemValue="id" itemLabel="fullName"/>
+		        	<c:forEach items="${persons}" var="p">
+		        		<form:option value="${p}" label="${p.firstName} ${p.lastName}"/>
+			        </c:forEach>
 		        </form:select>
 		        <form:errors path="person"/>
 		    </p>

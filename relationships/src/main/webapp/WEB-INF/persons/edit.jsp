@@ -10,8 +10,8 @@
 <body>
 	<div>
 		<a href="/dashboard">Dashboard</a>
-		<br>
-		<form:form action="/persons" method="post" modelAttribute="person" id="editSongForm">
+		<h1>Edit Person</h1>
+		<form:form action="/persons/${person.id}" method="post" modelAttribute="person" id="editPersonForm">
 			<input type="hidden" name="_method" value="put">
 		    <p>
 		        <form:label path="firstName">First Name</form:label>
@@ -25,8 +25,8 @@
 		    </p>
 		    <!-- <input type="submit" value="Update"/> -->
 		</form:form>
-		<button type="submit" form="editSongForm">Update</button>
-		<form action="/songs/${song.id}" method="post" style="display: inline;">
+		<button type="submit" form="editPersonForm">Update</button>
+		<form action="/persons/${person.id}" method="post" style="display: inline;">
 			<input type="hidden" name="_method" value="delete">
 			<input type="submit" value="Delete">
 		</form>

@@ -14,8 +14,8 @@
 		<h1><c:out value="${person.firstName}"/> <c:out value="${person.lastName}"/></h1>
 		<table>
 			<tr><td>License Number: </td><td><c:out value="${person.license.number}"/></td></tr>
-			<tr><td>State: </td><td><c:out value="${person.license.number}"/></td></tr>
-			<tr><td>Expiration Date: </td><td><c:out value="${person.license.number}"/></td></tr>
+			<tr><td>State: </td><td><c:out value="${person.license.state}"/></td></tr>
+			<tr><td>Expiration Date: </td><td><c:out value="${person.license.expirationDate}"/></td></tr>
 		</table>
 		<p><a href="/persons/${person.id}/edit">Edit</a></p>
 		<form action="/persons/${person.id}" method="post">

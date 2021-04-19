@@ -10,7 +10,7 @@
 <body>
 	<div>
 		<a href="/dashboard">Dashboard</a>
-		<br>
+		<h1>New Person</h1>
 		<form:form action="/persons" method="post" modelAttribute="person">
 		    <p>
 		        <form:label path="firstName">First Name</form:label>

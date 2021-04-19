@@ -5,6 +5,7 @@ package cd.java.springdata.relationships.controllers;
 
 import java.util.List;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -17,6 +18,7 @@ import cd.java.springdata.relationships.services.PersonService;
  * @author ccomstock
  *
  */
+@Controller
 public class WebappController {
 
 	private final PersonService personService;

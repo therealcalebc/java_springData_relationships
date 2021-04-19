@@ -27,6 +27,9 @@ public interface LicenseRepository extends CrudRepository<License, Long> {
 	// this method finds licenses associated with persons with last name containing the search string
 	List<License> findByPersonLastNameContainingIgnoreCase(String search);
 	
+	// this method finds the license with the highest (last) license number
+	License findFirstByOrderByNumberDesc();
+	
 	// this method counts how many licenses have state containing the search string
 	Long countByStateContaining(String search);
 	

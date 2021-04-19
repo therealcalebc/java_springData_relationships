@@ -66,6 +66,8 @@ public class LicensesController {
 		License license = licenseService.readOne(id);
 		if(license == null) return "redirect:/dashboard";
 		model.addAttribute("license", license);
+		List<Person> personList = personService.readAll();
+		model.addAttribute("persons", personList);
 		return "licenses/edit.jsp";
 	}
 	
