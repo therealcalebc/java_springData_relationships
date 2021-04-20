@@ -9,7 +9,7 @@
 </head>
 <body>
 	<div>
-		<a href="/dashboard">Dashboard</a>
+		<a href="/PL/dashboard">Dashboard</a>
 		<h1>New Person</h1>
 		<form:form action="/persons" method="post" modelAttribute="person">
 		    <p>

@@ -10,7 +10,7 @@
 </head>
 <body>
 	<div>
-		<a href="/dashboard">Dashboard</a>
+		<a href="/PL/dashboard">Dashboard</a>
 		<h1>New License</h1>
 		<form:form action="/licenses" method="post" modelAttribute="license">
 		    <p>

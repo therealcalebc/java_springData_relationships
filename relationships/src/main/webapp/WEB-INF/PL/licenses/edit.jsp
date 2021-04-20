@@ -10,7 +10,7 @@
 </head>
 <body>
 	<div>
-		<a href="/dashboard">Dashboard</a>
+		<a href="/PL/dashboard">Dashboard</a>
 		<h1>Edit License</h1>
 		<form:form action="/licenses/${license.id}" method="post" modelAttribute="license" id="editLicenseForm">
 			<input type="hidden" name="_method" value="put">
