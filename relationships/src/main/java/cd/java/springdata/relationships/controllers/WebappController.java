@@ -43,7 +43,7 @@ public class WebappController {
 		List<License> licenseList = licenseService.readAll();
 		model.addAttribute("persons", personList);
 		model.addAttribute("licenses", licenseList);
-		return "dashboard/indexPL.jsp";
+		return "PL/dashboard/index.jsp";
 	}
 	
 	@GetMapping("/dashboardDN")
@@ -52,7 +52,7 @@ public class WebappController {
 		List<Ninja> ninjaList = ninjaService.readAll();
 		model.addAttribute("dojos", dojoList);
 		model.addAttribute("ninjas", ninjaList);
-		return "dashboard/indexDN.jsp";
+		return "DN/dashboard/index.jsp";
 	}
 	
 }

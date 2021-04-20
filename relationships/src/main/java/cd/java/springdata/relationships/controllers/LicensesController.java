@@ -43,45 +43,45 @@ public class LicensesController {
 	public String viewNew(@ModelAttribute License license, Model model) {
 		List<Person> personList = personService.readAll();
 		model.addAttribute("persons", personList);
-		return "licenses/new.jsp";
+		return "PL/licenses/new.jsp";
 	}
 	
 	@PostMapping
 	public String addNew(@Valid @ModelAttribute License license, BindingResult result) {
-		if(result.hasErrors()) return "licenses/new.jsp";
+		if(result.hasErrors()) return "PL/licenses/new.jsp";
 		licenseService.createOne(license);
-		return "redirect:/dashboard";
+		return "redirect:/PL/dashboard";
 	}
 	
 	@GetMapping("/{id}")
 	public String viewShow(@PathVariable Long id, Model model) {
 		License license = licenseService.readOne(id);
-		if(license == null) return "redirect:/dashboard";
+		if(license == null) return "redirect:/PL/dashboard";
 		model.addAttribute("license", license);
-		return "licenses/show.jsp";
+		return "PL/licenses/show.jsp";
 	}
 	
 	@GetMapping("/{id}/edit")
 	public String viewEdit(@PathVariable Long id, Model model) {
 		License license = licenseService.readOne(id);
-		if(license == null) return "redirect:/dashboard";
+		if(license == null) return "redirect:/PL/dashboard";
 		model.addAttribute("license", license);
 		List<Person> personList = personService.readAll();
 		model.addAttribute("persons", personList);
-		return "licenses/edit.jsp";
+		return "PL/licenses/edit.jsp";
 	}
 	
 	@PutMapping("/{id}")
 	public String update(@Valid @ModelAttribute License license, BindingResult result) {
-		if(result.hasErrors()) return "licenses/edit.jsp";
+		if(result.hasErrors()) return "PL/licenses/edit.jsp";
 		licenseService.updateOne(license);
-		return "redirect:/dashboard";
+		return "redirect:/PL/dashboard";
 	}
 	
 	@DeleteMapping("/{id}")
 	public String delete(@PathVariable Long id) {
 		licenseService.destroyOneById(id);
-		return "redirect:/dashboard";
+		return "redirect:/PL/dashboard";
 	}
 	
 }

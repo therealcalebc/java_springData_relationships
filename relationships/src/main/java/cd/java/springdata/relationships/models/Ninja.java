@@ -49,10 +49,11 @@ public class Ninja implements java.io.Serializable {
     
     public Ninja() {}
     
-    public Ninja(String fn, String ln, Integer age) {
+    public Ninja(String fn, String ln, Integer age, Dojo dojo) {
     	firstName = fn;
     	lastName = ln;
     	this.age = age;
+    	this.dojo = dojo;
     }
     
     /**

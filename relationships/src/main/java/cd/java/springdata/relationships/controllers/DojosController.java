@@ -35,43 +35,43 @@ public class DojosController {
 	
 	@GetMapping("/new")
 	public String viewNew(@ModelAttribute Dojo dojo, Model model) {
-		return "dojos/new.jsp";
+		return "DN/dojos/new.jsp";
 	}
 	
 	@PostMapping
 	public String addNew(@Valid @ModelAttribute Dojo dojo, BindingResult result) {
-		if(result.hasErrors()) return "dojos/new.jsp";
+		if(result.hasErrors()) return "DN/dojos/new.jsp";
 		dojoService.createOne(dojo);
-		return "redirect:/dashboard";
+		return "redirect:/DN/dashboard";
 	}
 	
 	@GetMapping("/{id}")
 	public String viewShow(@PathVariable Long id, Model model) {
 		Dojo dojo = dojoService.readOne(id);
-		if(dojo == null) return "redirect:/dashboard";
+		if(dojo == null) return "redirect:/DN/dashboard";
 		model.addAttribute("dojo", dojo);
-		return "dojos/show.jsp";
+		return "DN/dojos/show.jsp";
 	}
 	
 	@GetMapping("/{id}/edit")
 	public String viewEdit(@PathVariable Long id, Model model) {
 		Dojo dojo = dojoService.readOne(id);
-		if(dojo == null) return "redirect:/dashboard";
+		if(dojo == null) return "redirect:/DN/dashboard";
 		model.addAttribute("dojo", dojo);
-		return "dojos/edit.jsp";
+		return "DN/dojos/edit.jsp";
 	}
 	
 	@PutMapping("/{id}")
 	public String update(@Valid @ModelAttribute Dojo dojo, BindingResult result) {
-		if(result.hasErrors()) return "dojos/edit.jsp";
+		if(result.hasErrors()) return "DN/dojos/edit.jsp";
 		dojoService.updateOne(dojo);
-		return "redirect:/dashboard";
+		return "redirect:/DN/dashboard";
 	}
 	
 	@DeleteMapping("/{id}")
 	public String delete(@PathVariable Long id) {
 		dojoService.destroyOneById(id);
-		return "redirect:/dashboard";
+		return "redirect:/DN/dashboard";
 	}
 	
 }

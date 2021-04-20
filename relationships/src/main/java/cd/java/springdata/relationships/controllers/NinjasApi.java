@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import cd.java.springdata.relationships.models.Dojo;
 import cd.java.springdata.relationships.models.Ninja;
 import cd.java.springdata.relationships.services.NinjaService;
 
@@ -35,8 +36,8 @@ public class NinjasApi {
 	}
 	
 	@PostMapping("/api/ninjas")
-	public Ninja create(@RequestParam String firstName, @RequestParam String lastName, @RequestParam Integer age) {
-		Ninja ninja = new Ninja(firstName, lastName, age);
+	public Ninja create(@RequestParam String firstName, @RequestParam String lastName, @RequestParam Integer age, @RequestParam Dojo dojo) {
+		Ninja ninja = new Ninja(firstName, lastName, age, dojo);
 		return ninjaService.createOne(ninja);
 	}
 	
@@ -47,12 +48,13 @@ public class NinjasApi {
 	}
 	
 	@PutMapping("/api/ninjas/{id}")
-	public Ninja update(@PathVariable Long id, @RequestParam String firstName, @RequestParam String lastName, @RequestParam Integer age) {
+	public Ninja update(@PathVariable Long id, @RequestParam String firstName, @RequestParam String lastName, @RequestParam Integer age, @RequestParam Dojo dojo) {
 		Ninja ninja = ninjaService.readOne(id);
 		if(ninja != null) {
 			ninja.setFirstName(firstName);
 			ninja.setLastName(lastName);
 			ninja.setAge(age);
+			ninja.setDojo(dojo);
 		}
 		return ninjaService.updateOne(ninja);
 	}
