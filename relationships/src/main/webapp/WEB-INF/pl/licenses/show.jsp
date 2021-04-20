@@ -9,7 +9,7 @@
 </head>
 <body>
 	<div>
-		<a href="/PL/dashboard">Dashboard</a>
+		<a href="/dashboard-pl">Dashboard</a>
 		<br>
 		<h1><c:out value="${license.number}"/></h1>
 		<table>

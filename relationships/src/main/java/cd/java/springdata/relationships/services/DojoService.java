@@ -28,8 +28,8 @@ public class DojoService {
 	 * @param l the new Dojo to create in the db
 	 * @return the newly created person
 	 */
-	public Dojo createOne(Dojo p) {
-		return dojoRepository.save(p);
+	public Dojo createOne(Dojo d) {
+		return dojoRepository.save(d);
 	}
 	
 	/**

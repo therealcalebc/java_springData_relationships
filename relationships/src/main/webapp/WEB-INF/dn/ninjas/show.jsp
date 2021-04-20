@@ -9,7 +9,7 @@
 </head>
 <body>
 	<div>
-		<a href="/DN/dashboard">Dashboard</a>
+		<a href="/dashboard-dn">Dashboard</a>
 		<br>
 		<h1><c:out value="${ninja.firstName}"/> <c:out value="${ninja.lastName}"/></h1>
 		<table>

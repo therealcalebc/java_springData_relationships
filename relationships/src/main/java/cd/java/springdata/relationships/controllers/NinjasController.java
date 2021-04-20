@@ -43,45 +43,49 @@ public class NinjasController {
 	public String viewNew(@ModelAttribute Ninja ninja, Model model) {
 		List<Dojo> dojos = dojoService.readAll();
 		model.addAttribute("dojos", dojos);
-		return "DN/ninjas/new.jsp";
+		return "dn/ninjas/new.jsp";
 	}
 	
 	@PostMapping
-	public String addNew(@Valid @ModelAttribute Ninja ninja, BindingResult result) {
-		if(result.hasErrors()) return "DN/ninjas/new.jsp";
+	public String addNew(@Valid @ModelAttribute Ninja ninja, BindingResult result, Model model) {
+		if(result.hasErrors()) {
+			List<Dojo> dojos = dojoService.readAll();
+			model.addAttribute("dojos", dojos);
+			return "dn/ninjas/new.jsp";
+		}
 		ninjaService.createOne(ninja);
-		return "redirect:/DN/dashboard";
+		return "redirect:/dashboard-dn";
 	}
 	
 	@GetMapping("/{id}")
 	public String viewShow(@PathVariable Long id, Model model) {
 		Ninja ninja = ninjaService.readOne(id);
-		if(ninja == null) return "redirect:/DN/dashboard";
+		if(ninja == null) return "redirect:/dashboard-dn";
 		model.addAttribute("ninja", ninja);
-		return "DN/ninjas/show.jsp";
+		return "dn/ninjas/show.jsp";
 	}
 	
 	@GetMapping("/{id}/edit")
 	public String viewEdit(@PathVariable Long id, Model model) {
 		Ninja ninja = ninjaService.readOne(id);
-		if(ninja == null) return "redirect:/DN/dashboard";
+		if(ninja == null) return "redirect:/dashboard-dn";
 		model.addAttribute("ninja", ninja);
 		List<Dojo> dojos = dojoService.readAll();
 		model.addAttribute("dojos", dojos);
-		return "DN/ninjas/edit.jsp";
+		return "dn/ninjas/edit.jsp";
 	}
 	
 	@PutMapping("/{id}")
 	public String update(@Valid @ModelAttribute Ninja ninja, BindingResult result) {
-		if(result.hasErrors()) return "DN/ninjas/edit.jsp";
+		if(result.hasErrors()) return "dn/ninjas/edit.jsp";
 		ninjaService.updateOne(ninja);
-		return "redirect:/DN/dashboard";
+		return "redirect:/dashboard-dn";
 	}
 	
 	@DeleteMapping("/{id}")
 	public String delete(@PathVariable Long id) {
 		ninjaService.destroyOneById(id);
-		return "redirect:/DN/dashboard";
+		return "redirect:/dashboard-dn";
 	}
 	
 }

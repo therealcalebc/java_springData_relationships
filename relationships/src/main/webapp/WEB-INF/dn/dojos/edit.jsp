@@ -10,16 +10,22 @@
 </head>
 <body>
 	<div>
-		<a href="/DN/dashboard">Dashboard</a>
-		<h1>New Dojo</h1>
-		<form:form action="/dojos" method="post" modelAttribute="dojo">
+		<a href="/dashboard-dn">Dashboard</a>
+		<h1>Edit Dojo</h1>
+		<form:form action="/dojos/${dojo.id}" method="post" modelAttribute="dojo" id="editDojoForm">
+			<input type="hidden" name="_method" value="put">
 		    <p>
 		        <form:label path="name">Name</form:label>
 		        <form:input path="name"/>
 		        <form:errors path="name"/>
 		    </p>
-		    <input type="submit" value="Add Dojo"/>
+		    <!-- <input type="submit" value="Update"/> -->
 		</form:form>
+		<button type="submit" form="editDojoForm">Update</button>
+		<form action="/dojos/${dojo.id}" method="post" style="display: inline;">
+			<input type="hidden" name="_method" value="delete">
+			<input type="submit" value="Delete">
+		</form>
 	</div>
 </body>
 </html>

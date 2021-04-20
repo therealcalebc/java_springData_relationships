@@ -28,8 +28,8 @@ public class NinjaService {
 	 * @param l the new Ninja to create in the db
 	 * @return the newly created ninja
 	 */
-	public Ninja createOne(Ninja p) {
-		return ninjaRepository.save(p);
+	public Ninja createOne(Ninja n) {
+		return ninjaRepository.save(n);
 	}
 	
 	/**
@@ -71,8 +71,8 @@ public class NinjaService {
 	 * @param p the Ninja to update in the db
 	 * @return the updated ninja
 	 */
-	public Ninja updateOne(Ninja p) {
-		return ninjaRepository.save(p);
+	public Ninja updateOne(Ninja n) {
+		return ninjaRepository.save(n);
 	}
 	
 	/**

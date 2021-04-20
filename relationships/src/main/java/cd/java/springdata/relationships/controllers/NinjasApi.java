@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import cd.java.springdata.relationships.models.Dojo;
 import cd.java.springdata.relationships.models.Ninja;
+import cd.java.springdata.relationships.services.DojoService;
 import cd.java.springdata.relationships.services.NinjaService;
 
 /**
@@ -25,9 +26,11 @@ import cd.java.springdata.relationships.services.NinjaService;
 public class NinjasApi {
 
 	private final NinjaService ninjaService;
+	private final DojoService dojoService;
 	
-	public NinjasApi(NinjaService ninjaService) {
+	public NinjasApi(NinjaService ninjaService, DojoService dojoService) {
 		this.ninjaService = ninjaService;
+		this.dojoService = dojoService;
 	}
 	
 	@GetMapping("/api/ninjas")
@@ -36,7 +39,8 @@ public class NinjasApi {
 	}
 	
 	@PostMapping("/api/ninjas")
-	public Ninja create(@RequestParam String firstName, @RequestParam String lastName, @RequestParam Integer age, @RequestParam Dojo dojo) {
+	public Ninja create(@RequestParam String firstName, @RequestParam String lastName, @RequestParam Integer age, @RequestParam Long dojoId) {
+		Dojo dojo = dojoService.readOne(dojoId);
 		Ninja ninja = new Ninja(firstName, lastName, age, dojo);
 		return ninjaService.createOne(ninja);
 	}
@@ -48,9 +52,10 @@ public class NinjasApi {
 	}
 	
 	@PutMapping("/api/ninjas/{id}")
-	public Ninja update(@PathVariable Long id, @RequestParam String firstName, @RequestParam String lastName, @RequestParam Integer age, @RequestParam Dojo dojo) {
+	public Ninja update(@PathVariable Long id, @RequestParam String firstName, @RequestParam String lastName, @RequestParam Integer age, @RequestParam Long dojoId) {
 		Ninja ninja = ninjaService.readOne(id);
-		if(ninja != null) {
+		Dojo dojo = dojoService.readOne(dojoId);
+		if(ninja != null && dojo != null) {
 			ninja.setFirstName(firstName);
 			ninja.setLastName(lastName);
 			ninja.setAge(age);

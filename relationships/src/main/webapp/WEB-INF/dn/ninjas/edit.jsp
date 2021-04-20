@@ -10,7 +10,7 @@
 </head>
 <body>
 	<div>
-		<a href="/DN/dashboard">Dashboard</a>
+		<a href="/dashboard-dn">Dashboard</a>
 		<h1>Edit Ninja</h1>
 		<form:form action="/ninjas/${ninja.id}" method="post" modelAttribute="ninja" id="editNinjaForm">
 			<input type="hidden" name="_method" value="put">

@@ -37,22 +37,22 @@ public class WebappController {
 		ninjaService = ninjaServ;
 	}
 	
-	@GetMapping("/dashboardPL")
+	@GetMapping("/dashboard-pl")
 	public String viewDashboardPL(Model model) {
 		List<Person> personList = personService.readAll();
 		List<License> licenseList = licenseService.readAll();
 		model.addAttribute("persons", personList);
 		model.addAttribute("licenses", licenseList);
-		return "PL/dashboard/index.jsp";
+		return "pl/dashboard/index.jsp";
 	}
 	
-	@GetMapping("/dashboardDN")
+	@GetMapping("/dashboard-dn")
 	public String viewDashboardDN(Model model) {
 		List<Dojo> dojoList = dojoService.readAll();
 		List<Ninja> ninjaList = ninjaService.readAll();
 		model.addAttribute("dojos", dojoList);
 		model.addAttribute("ninjas", ninjaList);
-		return "DN/dashboard/index.jsp";
+		return "dn/dashboard/index.jsp";
 	}
 	
 }

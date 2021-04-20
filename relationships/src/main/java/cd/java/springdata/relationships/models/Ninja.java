@@ -19,6 +19,9 @@ import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * @author ccomstock
  *
@@ -43,6 +46,7 @@ public class Ninja implements java.io.Serializable {
     private LocalDateTime createdAt;
 	@DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss a")
     private LocalDateTime updatedAt;
+	@JsonIgnore
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="dojo_id")
     private Dojo dojo;
@@ -143,7 +147,6 @@ public class Ninja implements java.io.Serializable {
 	/**
 	 * @return the Dojo
 	 */
-//	@JsonProperty
 	public Dojo getDojo() {
 		return dojo;
 	}
@@ -151,9 +154,13 @@ public class Ninja implements java.io.Serializable {
 	/**
 	 * @param dojo the Dojo to set
 	 */
-//	@JsonIgnore
 	public void setDojo(Dojo dojo) {
 		this.dojo = dojo;
+	}
+
+	@JsonProperty("dojoName")
+	public String getDojoName() {
+		return dojo.getName();
 	}
 
 	@PrePersist

@@ -35,43 +35,43 @@ public class PersonsController {
 	
 	@GetMapping("/new")
 	public String viewNew(@ModelAttribute Person person) {
-		return "PL/persons/new.jsp";
+		return "pl/persons/new.jsp";
 	}
 	
 	@PostMapping
 	public String addNew(@Valid @ModelAttribute Person person, BindingResult result) {
-		if(result.hasErrors()) return "PL/persons/new.jsp";
+		if(result.hasErrors()) return "pl/persons/new.jsp";
 		personService.createOne(person);
-		return "redirect:/PL/dashboard";
+		return "redirect:/dashboard-pl";
 	}
 	
 	@GetMapping("/{id}")
 	public String viewShow(@PathVariable Long id, Model model) {
 		Person person = personService.readOne(id);
-		if(person == null) return "redirect:/PL/dashboard";
+		if(person == null) return "redirect:/dashboard-pl";
 		model.addAttribute("person", person);
-		return "PL/persons/show.jsp";
+		return "pl/persons/show.jsp";
 	}
 	
 	@GetMapping("/{id}/edit")
 	public String viewEdit(@PathVariable Long id, Model model) {
 		Person person = personService.readOne(id);
-		if(person == null) return "redirect:/PL/dashboard";
+		if(person == null) return "redirect:/dashboard-pl";
 		model.addAttribute("person", person);
-		return "PL/persons/edit.jsp";
+		return "pl/persons/edit.jsp";
 	}
 	
 	@PutMapping("/{id}")
 	public String update(@Valid @ModelAttribute Person person, BindingResult result) {
-		if(result.hasErrors()) return "PL/persons/edit.jsp";
+		if(result.hasErrors()) return "pl/persons/edit.jsp";
 		personService.updateOne(person);
-		return "redirect:/PL/dashboard";
+		return "redirect:/dashboard-pl";
 	}
 	
 	@DeleteMapping("/{id}")
 	public String delete(@PathVariable Long id) {
 		personService.destroyOneById(id);
-		return "redirect:/PL/dashboard";
+		return "redirect:/dashboard-pl";
 	}
 	
 }

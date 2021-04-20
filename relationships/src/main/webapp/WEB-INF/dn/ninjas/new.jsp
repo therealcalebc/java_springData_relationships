@@ -10,14 +10,14 @@
 </head>
 <body>
 	<div>
-		<a href="/DN/dashboard">Dashboard</a>
+		<a href="/dashboard-dn">Dashboard</a>
 		<h1>New Ninja</h1>
 		<form:form action="/ninjas" method="post" modelAttribute="ninja">
 		    <p>
 		        <form:label path="dojo">Dojo</form:label>
 		        <form:select path="dojo">
-		        	<c:forEach items="${dojos}" var="d">
-			        	<form:option value="${d}" label="${d.name}"/>
+		        	<c:forEach items="${dojos}" var="do">
+			        	<form:option value="${do.id}"><c:out value="${do.name}"/></form:option>
 			        </c:forEach>
 		        </form:select>
 		        <form:errors path="dojo"/>
